@@ -47,6 +47,11 @@ JOIN employe ON employe.id = badgeage.employe_id
 WHERE badgeage.sens = 'entree' AND EXTRACT(HOUR FROM horodatage) >= 21
 ORDER BY EXTRACT(HOUR FROM horodatage)ASC
 
+SELECT badgeage.horodatage, badgeage.sens, badgeage.porte, badgeage.employe_id, conge.date_debut, conge.date_fin
+FROM badgeage
+JOIN conge ON conge.employe_id = badgeage.employe_id 
+AND DATE (badgeage.horodatage) BETWEEN conge.date_debut AND conge.date_fin
+
 SELECT DISTINCT transaction_cafe.horodatage, boisson
 FROM conge
 JOIN employe ON employe.id = conge.employe_id
