@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS visite;
+DROP TABLE IF EXISTS visiteur;
+DROP TYPE IF EXISTS motif_visite_enum;

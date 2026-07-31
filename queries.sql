@@ -1,11 +1,12 @@
 SELECT employe.nom, service.nom
 FROM employe
 JOIN service On service.id = employe.service_id
+ORDER BY service.nom,employe.nom
 
 SELECT service.nom,COUNT(employe.nom)
 FROM employe
 JOIN service ON service.id = employe.service_id
-GROUP BY service.nom
+GROUP BY service.nom 
 
 SELECT SUM (prix_centimes) / 100
 FROM transaction_cafe
@@ -59,10 +60,13 @@ JOIN badgeage ON badgeage.employe_id = employe.id
 JOIN transaction_cafe ON transaction_cafe.employe_id = badgeage.employe_id
 WHERE employe.id = '15' AND transaction_cafe.horodatage >= date_debut AND transaction_cafe.horodatage < date_fin
 
-SELECT DISTINCT nom,prenom
-FROM employe
-JOIN conge ON employe.id = conge.employe_id
-JOIN acces_parking ON acces_parking.employe_id = employe.id
-WHERE (acces_parking.horodatage BETWEEN '2026-06-15' AND '2026-06-26')
-AND acces_parking.sens = 'entree'
+SELECT employe.prenom,employe.nom,acces_parking.horodatage,acces_parking.sens
+from acces_parking
+JOIN employe ON employe.id = acces_parking.employe_id
+where acces_parking.horodatage::time > '21:00'
 
+SELECT badgeage.horodatage,badgeage.sens,badgeage.porte
+FROM badgeage
+WHERE employe_id = 16
+AND badgeage.horodatage::date IN ('2026-06-16','2026-06-17','2026_06-18')
+ORDER BY badgeage.horodatage;
